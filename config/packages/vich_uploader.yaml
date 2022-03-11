@@ -1,0 +1,10 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        promosport_image:
+            uri_prefix: /img/promosport
+            upload_destination: '%kernel.project_dir%/public/img/promosport'
+        article_image:
+            uri_prefix: /img/article
+            upload_destination: '%kernel.project_dir%/public/img/article'
