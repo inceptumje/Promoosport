@@ -52,9 +52,15 @@ class League
      */
     private $updatedAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Team::class, mappedBy="league", orphanRemoval=true)
+     */
+    private $teams;
+
     public function __construct()
     {
         $this->matches = new ArrayCollection();
+        $this->teams = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -126,6 +132,36 @@ class League
             // set the owning side to null (unless already changed)
             if ($match->getLeague() === $this) {
                 $match->setLeague(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Team>
+     */
+    public function getTeams(): Collection
+    {
+        return $this->teams;
+    }
+
+    public function addTeam(Team $team): self
+    {
+        if (!$this->teams->contains($team)) {
+            $this->teams[] = $team;
+            $team->setLeague($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTeam(Team $team): self
+    {
+        if ($this->teams->removeElement($team)) {
+            // set the owning side to null (unless already changed)
+            if ($team->getLeague() === $this) {
+                $team->setLeague(null);
             }
         }
 

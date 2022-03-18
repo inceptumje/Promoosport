@@ -31,7 +31,7 @@ class Team
     private $logo;
 
     /**
-     * @Vich\UploadableField(mapping="product_images", fileNameProperty="image")
+     * @Vich\UploadableField(mapping="team_logo", fileNameProperty="logo")
      * @var File
      */
     private $logoFile;
@@ -41,6 +41,12 @@ class Team
      * @var \DateTime
      */
     private $updatedAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=League::class, inversedBy="teams")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $league;
 
 
 
@@ -78,12 +84,26 @@ class Team
         return $this->logoFile;
     }
 
-    public function setLogoFile(File $logoFile = null): self
+    public function setLogoFile(?File $logoFile = null)
     {
         $this->logoFile = $logoFile;
 
-        if ($logoFile){
-            $this->updatedAt = new \DateTime('now');
+        if (null !== $logoFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
         }
+    }
+
+    public function getLeague(): ?League
+    {
+        return $this->league;
+    }
+
+    public function setLeague(?League $league): self
+    {
+        $this->league = $league;
+
+        return $this;
     }
 }
