@@ -8,3 +8,15 @@ vich_uploader:
         article_image:
             uri_prefix: /img/article
             upload_destination: '%kernel.project_dir%/public/img/article'
+        league_logo:
+            uri_prefix: /img/league
+            upload_destination: '%kernel.project_dir%/public/img/league'
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+        team_logo:
+            uri_prefix: /img/team
+            upload_destination: '%kernel.project_dir%/public/img/team'
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
