@@ -11,6 +11,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=LeagueRepository::class)
+ * @Vich\Uploadable
  */
 class League
 {
@@ -32,7 +33,7 @@ class League
     private $logo;
 
     /**
-     * @Vich\UploadableField(mapping="product_images", fileNameProperty="image")
+     * @Vich\UploadableField(mapping="league_logo", fileNameProperty="logo")
      * @var File
      */
     private $logoFile;
@@ -42,6 +43,14 @@ class League
      * @ORM\OneToMany(targetEntity=MatchFoot::class, mappedBy="league", orphanRemoval=true)
      */
     private $matches;
+
+
+    /**
+     * @ORM\Column(type="datetime")
+     *
+     * @var \DateTimeInterface|null
+     */
+    private $updatedAt;
 
     public function __construct()
     {
@@ -75,6 +84,22 @@ class League
         $this->logo = $logo;
 
         return $this;
+    }
+
+    public function setLogoFile(?File $logoFile = null)
+    {
+        $this->logoFile = $logoFile;
+
+        if (null !== $logoFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getLogoFile(): ?File
+    {
+        return $this->logoFile;
     }
 
     /**
