@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+<div class="row align-items-center">
+    <div class="col-6 mx-auto" style="padding-top: 10px">
+        <div class="card">
+            <div class="card-header">
+                S'inscrire
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <input type="submit" class="btn btn-danger" value="S'incrire" >
+                    {{ form_end(form) }}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Footer Start -->
+    {% include 'global/Dashboard_parts/footer.html.twig' %}
+{% endblock %}

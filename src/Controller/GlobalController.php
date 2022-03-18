@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Utilisateur;
+use App\Form\InscriptionType;
 use App\Repository\ArticleRepository;
 use App\Repository\PromosportRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -9,13 +11,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class GlobalController extends AbstractController
 {
     /**
      * @Route("/", name="global")
      */
-    public function index(ArticleRepository $repository , PromosportRepository $repo , PaginatorInterface $paginator, Request $request): Response
+    public function index(ArticleRepository $repository , PromosportRepository $repo , PaginatorInterface $paginator, Request $request,AuthenticationUtils $utils): Response
     {
         $promosport = $repo->findAll();
         $articles = $paginator->paginate(
@@ -24,9 +28,8 @@ class GlobalController extends AbstractController
             4 /*limit per page*/
         );
         return $this->render('global/index.html.twig', [
-            "articles" => $articles,
-            "promosport" => $promosport
-
+            "articles" => $articles ,
+            "promosport" => $promosport,
         ]);
     }
 
@@ -39,4 +42,49 @@ class GlobalController extends AbstractController
 
         ]);
     }
+
+    /**
+     * @Route("/inscription", name="inscription")
+     */
+    public function Inscription(Request $request, UserPasswordEncoderInterface $encoder)
+    {
+        $utilisateur = new Utilisateur();
+        $form = $this->createForm(InscriptionType::class, $utilisateur);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $passwordcrypt = $encoder->encodePassword($utilisateur, $utilisateur->getPassword());
+            $utilisateur->setPassword($passwordcrypt);
+            $utilisateur->setRoles('[ROLE_USER]');
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($utilisateur);
+            $em->flush();
+            return $this->redirectToRoute('global');
+        }
+        return $this->render('global/Inscription.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/login", name="login")
+     *
+     */
+
+    public function login(AuthenticationUtils $utils): Response
+    {
+        return $this->render('global/login.html.twig',[
+            'LastUserName' => $utils->getLastUsername() ,
+            'error' => $utils->getLastAuthenticationError()
+        ]);
+    }
+
+    /**
+     * @Route("/logout", name="logout")
+     */
+
+    public function logout()
+    {
+
+    }
+
 }

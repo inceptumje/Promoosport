@@ -17,20 +17,5 @@
                 <a class="btn btn-lg btn-secondary btn-lg-square" href="{{ asset('https://www.youtube.com/channel/UCLdS3DZSlAgXovSowVXCUPA') }}"><i class="fab fa-youtube"></i></a>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6 mb-5">
-            <h5 class="mb-4 text-white text-uppercase font-weight-bold">Les Articles Populaires</h5>
-            {% for article in articles %}
-                <div class="mb-3">
-                    <div class="mb-2">
-                        <a class="badge badge-danger text-uppercase font-weight-semi-bold p-1 mr-2" href="">Actualité</a>
-                        <a class="text-body" href=""><small>{{ article.date | date('F d, Y') }}</small></a>
-                    </div>
-                    <a class="small text-black text-uppercase font-weight-medium" href="{{ path('single_article' ,{'id' : article.id} )}}">
-                         + Lire plus
-                    </a>
-                </div>
-            {% endfor %}
-        </div>
-
     </div>
 </div>

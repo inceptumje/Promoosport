@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Commentaire;
 use App\Form\ArticleType;
+use App\Form\CommentaireType;
 use App\Repository\ArticleRepository;
+use App\Repository\CommentaireRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,15 +29,35 @@ class ArticleController extends AbstractController
     /**
      * @Route("/article/{id}", name="single_article")
      */
-    public function single_article(Article $article , ArticleRepository $repository , $id): Response
+    public function single_article(Article $article , ArticleRepository $repository , $id , Request $request , CommentaireRepository $commentaireRepository): Response
     {
         $article->incrementNbViews();
         $em = $this->getDoctrine()->getManager();
         $em->persist($article);
         $em->flush();
         $article = $repository->find($id);
+
+        $commentaires = $commentaireRepository->findby(['article'=>$id]);
+        $commentaire_article = new Commentaire();
+        $form = $this->createForm(CommentaireType::class , $commentaire_article);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $commentaire_article->setUtilisateur($this->getUser());
+            $commentaire_article->setArticle($article);
+            $commentaire_article->setCreatedAt(new \DateTime('now'));
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($commentaire_article);
+            $em->flush();
+            return $this->redirectToRoute('single_article',[
+                "id"=> $article->getId()
+            ]);
+        }
+
         return $this->render('article/single_article.html.twig', [
-            "article" => $article
+            "article" => $article ,
+            "form"=>$form->createView(),
+            "commentaires" => $commentaires
         ]);
     }
 
