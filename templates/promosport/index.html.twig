@@ -1,0 +1,55 @@
+{% extends 'Dashboard.html.twig' %}
+
+{% block title %}Promosport{% endblock %}
+
+{% block body %}
+
+        <div class="page-header">
+            <h3 class="page-title"> Promosport </h3>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                <a class="nav-link btn btn-success create-new-button"  href="{{ path('ajouter_promosport') }}"> + Ajouter nouveau Promosport </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Created</th>
+                                    <th>Content</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for promosport in promosport %}
+                                    <tr>
+                                        <td>{{ promosport.type }}</td>
+                                        <td>{{ promosport.createdAt | date('F d, Y') }}</td>
+                                        <td>
+                                            {{ promosport.getContent | raw}}
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-primary"  href="{{path('modifier_promosport',{'id': promosport.id})}}" >modifier</a>
+                                        </td>
+                                        <td>
+                                            <form method="post"  action=" {{ path('supprimer_promosport' , {'id' : promosport.id})}}" onsubmit="return confirm('Voulez vous supprimer ?')">
+                                                <input type="hidden" name="_method" value="SUP">
+                                                <input type="hidden" name="_token" value="">
+                                                <input type="submit" class="btn btn-danger" value="supprimer">
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

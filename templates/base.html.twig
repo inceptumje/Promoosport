@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>
+        {% block title %}{% endblock %}
+    </title>
+
+    {% block stylesheet %}{% endblock %}
+    <!-- Favicon -->
+    <link href="{{ asset('img/favicon.ico')}}" rel="icon">
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="{{ asset('https://fonts.gstatic.com')}}">
+    <link href="{{ asset('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap')}}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css')}}" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{{ asset('css/style.css')}}" rel="stylesheet">
+    <link href="{{ asset('https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css')}}" rel="stylesheet">
+</head>
+
+<body>
+<!-- Topbar Start -->
+<div class="container-fluid d-none d-lg-block">
+    <div class="row align-items-center bg-dark px-lg-5">
+        <div class="col-lg-9">
+            <nav class="navbar navbar-expand-sm bg-dark p-0">
+                <ul class="navbar-nav ml-n2">
+                    <li class="nav-item border-right border-secondary">
+                        <a class="nav-link text-body small" href="#">{{ "now"|date('F d, Y') }}</a>
+                    </li>
+                    <li class="nav-item border-right border-secondary">
+                        <a class="nav-link text-body small" href="#">Advertise</a>
+                    </li>
+                    <li class="nav-item border-right border-secondary">
+                        <a class="nav-link text-body small" href="#">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-body small" href="#">Login</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="col-lg-3 text-right d-none d-md-block">
+            <nav class="navbar navbar-expand-sm bg-dark p-0">
+                <ul class="navbar-nav ml-auto mr-n2">
+                    <li class="nav-item">
+                        <a class="nav-link text-body" href="#"><small class="fab fa-twitter"></small></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-body" href="#"><small class="fab fa-facebook-f"></small></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-body" href="#"><small class="fab fa-linkedin-in"></small></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-body" href="#"><small class="fab fa-instagram"></small></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-body" href="#"><small class="fab fa-google-plus-g"></small></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-body" href="#"><small class="fab fa-youtube"></small></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div class="row align-items-center py-3 px-lg-5" style="background-color: #8ac7ed">
+        <div class="col-lg-4">
+            <a href="{{ path('global') }}" class="navbar-brand p-0 d-none d-lg-block">
+                <h1 class="m-0 display-4 text-uppercase"style="color: #c91a37" >Promo<span class="text-secondary font-weight-normal">Sport</span></h1>
+            </a>
+        </div>
+        <div class="col-lg-8 text-center text-lg-right">
+            <a href="{{ path('global') }}"><img class="img-fluid" src="img/image1.png" alt=""></a>
+        </div>
+    </div>
+</div>
+<!-- Topbar End -->
+
+
+<!-- Navbar Start -->
+<div class="container-fluid p-0">
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-2 py-lg-0 px-lg-5">
+        <div class="collapse navbar-collapse justify-content-between px-0 px-lg-3" id="navbarCollapse">
+            <div class="navbar-nav mr-auto py-0">
+                <a href="{{ path('global') }}" class="nav-item nav-link active">Home</a>
+                <a href="category.html" class="nav-item nav-link">Category</a>
+                <a href="single.html" class="nav-item nav-link">Single News</a>
+                <a href="contact.html" class="nav-item nav-link">Contact</a>
+                  <div class="nav-item dropdown">
+                    <a href="/quisommesnous/quisommesnous" class="nav-link dropdown-toggle" data-toggle="dropdown">QUI SOMMES NOUS ?</a>
+                    <div class="dropdown-menu rounded-0 m-0">
+                        <a href="/quisommesnous/attributions" class="dropdown-item">ATTRIBUTIONS</a>
+                        <a href="/quisommesnous/concourspromosport" class="dropdown-item">CONCOURS PROMOSPORT</a>
+                        <a href="/quisommesnous/commercial" class="dropdown-item">COMMERCIAL</a>
+                        <a href="/quisommesnous/technologie" class="dropdown-item">TECHNOLOGIE</a>
+                        <a href="/quisommesnous/reglementation" class="dropdown-item">RÉGLEMENTATION</a>
+                        <a href="/quisommesnous/textesjuridiques" class="dropdown-item">TEXTES JURIDIQUES</a>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group ml-auto d-none d-lg-flex" style="width: 100%; max-width: 300px;">
+                <input type="text" class="form-control border-0" placeholder="Keyword">
+                <div class="input-group-append">
+                    <button class="input-group-text bg-danger text-dark border-0 px-3">
+                        <i class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+<!-- Navbar End -->
+
+{% block body %}
+{% endblock %}
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-primary btn-square back-to-top"><i class="fa fa-arrow-up"></i></a>
+
+{% block js %}{% endblock %}
+<!-- JavaScript Libraries -->
+
+<script src="{{ asset('https://code.jquery.com/jquery-3.4.1.min.js')}}"></script>
+<script src="{{ asset('https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{ asset('lib/easing/easing.min.js')}}"></script>
+<script src="{{ asset('lib/owlcarousel/owl.carousel.min.js')}}"></script>
+<!-- Template Javascript -->
+<script src="{{ asset('js/main.js')}}"></script>
+<script src="{{ asset('https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js')}}" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="{{ asset('https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js')}}" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="{{ asset('https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js')}}" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+</body>
+
+</html>
