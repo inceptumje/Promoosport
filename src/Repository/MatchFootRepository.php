@@ -62,6 +62,15 @@ class MatchFootRepository extends ServiceEntityRepository
     }
     */
 
+    public function findByLeague($leagueName)
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.league.nom = :leagueName')
+            ->setParameter('leagueName',$leagueName)
+            ->getQuery()
+            ->getResult();
+    }
+
     /*
     public function findOneBySomeField($value): ?MatchFoot
     {

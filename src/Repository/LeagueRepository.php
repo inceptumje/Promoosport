@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\League;
+use App\Entity\MatchFoot;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -43,6 +44,18 @@ class LeagueRepository extends ServiceEntityRepository
         if ($flush) {
             $this->_em->flush();
         }
+    }
+
+    /**
+    * @return MatchFoot[] Returns an array of League objects
+    */
+    public function selectMatchesOfLeague($leagueId){
+        return $this->createQueryBuilder('l')
+            ->select('l.matches')
+            ->andWhere('l.id = :val')
+            ->setParameter('val',$leagueId)
+            ->getQuery()
+            ->getResult();
     }
 
     // /**
