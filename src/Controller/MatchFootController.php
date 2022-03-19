@@ -75,7 +75,8 @@ class MatchFootController extends AbstractController
         // $conn->close();
 
 
-        $matches = $lrp->selectMatchesOfLeague($leagueId);
+        //$matches = $lrp->selectMatchesOfLeague($leagueId);
+        $matches = $mfrp->findByLeague($leagueId);
         $leagues = $lrp->findAll();
 
         return $this->render('MatchFoot/Front-Office/match.front.html.twig', [
