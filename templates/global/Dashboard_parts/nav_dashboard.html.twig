@@ -7,6 +7,14 @@
     </a>
 </li>
 <li class="nav-item menu-items">
+    <a class="nav-link" href="{{ path('global') }}">
+              <span class="menu-icon">
+                <i class="mdi mdi-speedometer"></i>
+              </span>
+        <span class="menu-title">Back to FRONT</span>
+    </a>
+</li>
+<li class="nav-item menu-items">
     <a class="nav-link" data-toggle="collapse" href="#ui-promosport" aria-expanded="false" aria-controls="ui-basic">
               <span class="menu-icon">
                 <i class="mdi mdi-laptop"></i>
@@ -31,6 +39,20 @@
     <div class="collapse" id="ui-Actualite" style="">
         <ul class="nav flex-column sub-menu">
             <li class="nav-item"> <a class="nav-link" href="{{ path('Dashboard_article') }}">Les Actualites</a></li>
+        </ul>
+    </div>
+</li>
+<li class="nav-item menu-items">
+    <a class="nav-link" data-toggle="collapse" href="#ui-commentaire" aria-expanded="false" aria-controls="ui-basic">
+              <span class="menu-icon">
+                <i class="mdi mdi-laptop"></i>
+              </span>
+        <span class="menu-title">Les Commentaires</span>
+        <i class="menu-arrow"></i>
+    </a>
+    <div class="collapse" id="ui-commentaire" style="">
+        <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="{{ path('Dashboard_commentaire') }}">Les Commentaires</a></li>
         </ul>
     </div>
 </li>

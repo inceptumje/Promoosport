@@ -105,13 +105,9 @@
                     </div>
                 </div>
                 <a href="contact.html" class="nav-item nav-link">Contact</a>
-            </div>
-            <div class="input-group ml-auto d-none d-lg-flex" style="width: 100%; max-width: 300px;">
-                <input type="text" class="form-control border-0" placeholder="Keyword">
-                <div class="input-group-append">
-                    <button class="input-group-text bg-danger text-dark border-0 px-3">
-                        <i class="fa fa-search"></i></button>
-                </div>
+                {% if is_granted('ROLE_ADMIN') and app.user %}
+                    <a href="{{ path('Dashboard') }}" class="nav-item nav-link">Dashboard</a>
+                {% endif %}
             </div>
         </div>
     </nav>
