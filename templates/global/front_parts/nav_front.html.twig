@@ -1,0 +1,29 @@
+<!-- Navbar Start -->
+<div class="container-fluid p-0">
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-2 py-lg-0 px-lg-5">
+        <div class="collapse navbar-collapse justify-content-between px-0 px-lg-3" id="navbarCollapse">
+            <div class="navbar-nav mr-auto py-0">
+                <a href="{{ path('global') }}" class="nav-item nav-link active">Home</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Qui sommes nous</a>
+                    <div class="dropdown-menu rounded-0 m-0">
+                        {% for promosport in promosport  %}
+                            <a href="{{ path('promo_type' , { 'promotype' : promosport.type })}}" class="dropdown-item">{{ promosport.type }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Grille Promosport</a>
+                    <div class="dropdown-menu rounded-0 m-0">
+                        <a href="#" class="dropdown-item">Promo International </a>
+                        <a href="#" class="dropdown-item">Promo National</a>
+                    </div>
+                </div>
+                {% if is_granted('ROLE_ADMIN') and app.user %}
+                    <a href="{{ path('Dashboard') }}" class="nav-item nav-link">Dashboard</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+</div>
+<!-- Navbar End -->

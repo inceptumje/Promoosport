@@ -20,16 +20,6 @@ class ArticleRepository extends ServiceEntityRepository
     }
 
 
-    public function Last_5_articles()
-    {
-        return $this->createQueryBuilder('a')
-            ->orderBy('a.date', 'DESC')
-            ->setMaxResults(5)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-
     /*
     public function findOneBySomeField($value): ?Article
     {

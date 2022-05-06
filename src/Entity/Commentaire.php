@@ -37,6 +37,11 @@ class Commentaire
      */
     private $article;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Concours::class, inversedBy="commentaires")
+     */
+    private $concours;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,6 +91,18 @@ class Commentaire
     public function setArticle(?Article $article): self
     {
         $this->article = $article;
+
+        return $this;
+    }
+
+    public function getConcours(): ?Concours
+    {
+        return $this->concours;
+    }
+
+    public function setConcours(?Concours $concours): self
+    {
+        $this->concours = $concours;
 
         return $this;
     }

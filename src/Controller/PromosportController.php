@@ -66,6 +66,18 @@ class PromosportController extends AbstractController
         return $this->redirectToRoute('Dashboard_promosport');
     }
 
+    /**
+     * @Route("/{promotype}", name="promo_type")
+     */
+    public function promotype(PromosportRepository $repository , $promotype)
+    {
+        $promosports = $repository->findBy(['type'=>$promotype]);
+        $promosport = $repository->findAll();
+        return $this->render('promosport/single_promosport.html.twig',[
+            'promosports'=>$promosports,
+            'promosport'=>$promosport
+        ]);
+    }
 
 
 
