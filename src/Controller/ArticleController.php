@@ -8,6 +8,7 @@ use App\Form\ArticleType;
 use App\Form\CommentaireType;
 use App\Repository\ArticleRepository;
 use App\Repository\CommentaireRepository;
+use App\Repository\PromosportRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,8 +30,9 @@ class ArticleController extends AbstractController
     /**
      * @Route("/article/{id}", name="single_article")
      */
-    public function single_article(Article $article , ArticleRepository $repository , $id , Request $request , CommentaireRepository $commentaireRepository): Response
+    public function single_article(Article $article , ArticleRepository $repository , $id , Request $request , CommentaireRepository $commentaireRepository , PromosportRepository $promosportRepository): Response
     {
+        $promosport = $promosportRepository->findAll();
         $article->incrementNbViews();
         $em = $this->getDoctrine()->getManager();
         $em->persist($article);
@@ -57,7 +59,8 @@ class ArticleController extends AbstractController
         return $this->render('article/single_article.html.twig', [
             "article" => $article ,
             "form"=>$form->createView(),
-            "commentaires" => $commentaires
+            "commentaires" => $commentaires,
+            "promosport"=>$promosport
         ]);
     }
 

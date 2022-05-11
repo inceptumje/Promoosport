@@ -8,6 +8,7 @@ use App\Form\CommentaireType;
 use App\Form\ConcoursType;
 use App\Repository\CommentaireRepository;
 use App\Repository\ConcoursRepository;
+use App\Repository\PromosportRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -59,6 +60,7 @@ class ConcoursController extends AbstractController
      */
     public function delete(Concours $concours)
     {
+
         $em = $this->getDoctrine()->getManager();
         $em->remove($concours);
         $em->flush();
@@ -69,8 +71,9 @@ class ConcoursController extends AbstractController
     /**
      * @Route("/concours/{id}", name="single_concours")
      */
-    public function single_commentaire(Concours $concours, ConcoursRepository $repository, $id, Request $request, CommentaireRepository $commentaireRepository): Response
+    public function single_commentaire(Concours $concours, ConcoursRepository $repository, $id, Request $request, CommentaireRepository $commentaireRepository , PromosportRepository $promosportRepository): Response
     {
+        $promosport = $promosportRepository->findAll();
         $concours->incrementNbViews();
         $em = $this->getDoctrine()->getManager();
         $em->persist($concours);
@@ -95,7 +98,8 @@ class ConcoursController extends AbstractController
             return $this->render('concours/single_concours.html.twig', [
                 "concours" => $concours ,
                 "form"=>$form->createView(),
-                "commentaires" => $commentaires
+                "commentaires" => $commentaires,
+                "promosport"=>$promosport
             ]);
         }
 

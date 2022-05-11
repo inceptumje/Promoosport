@@ -49,8 +49,9 @@ class GlobalController extends AbstractController
     /**
      * @Route("/inscription", name="inscription")
      */
-    public function Inscription(Request $request, UserPasswordEncoderInterface $encoder)
+    public function Inscription(Request $request, UserPasswordEncoderInterface $encoder , PromosportRepository $promosportRepository)
     {
+        $promosport = $promosportRepository->findAll();
         $utilisateur = new Utilisateur();
         $form = $this->createForm(InscriptionType::class, $utilisateur);
         $form->handleRequest($request);
@@ -64,7 +65,8 @@ class GlobalController extends AbstractController
             return $this->redirectToRoute('global');
         }
         return $this->render('global/Inscription.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            "promosport"=>$promosport
         ]);
     }
 
@@ -73,11 +75,13 @@ class GlobalController extends AbstractController
      *
      */
 
-    public function login(AuthenticationUtils $utils): Response
+    public function login(AuthenticationUtils $utils ,PromosportRepository $promosportRepository): Response
     {
+        $promosport = $promosportRepository->findAll();
         return $this->render('global/login.html.twig',[
             'LastUserName' => $utils->getLastUsername() ,
-            'error' => $utils->getLastAuthenticationError()
+            'error' => $utils->getLastAuthenticationError(),
+            "promosport"=>$promosport
         ]);
     }
 
