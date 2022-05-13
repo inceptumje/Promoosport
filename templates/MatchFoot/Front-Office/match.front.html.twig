@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Promosport{% endblock %}
+
+
+
+{% block body %}
+    <style>
+        .image-parent {
+            max-width: 40px;
+        }
+    </style>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+                <br>
+                <h4 class="text-muted">Les Ligues</h4>
+                <ul class="list-group">
+                    {% for league in leagues %}
+                        <a style="color : black;" href="{{ path('admin_match_by_league', {'leagueId': league.id} ) }}">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                {# <a href="{{ path('admin_match_by_league', {'leagueName': league.nom} ) }}"> #}
+                                {{league.nom}}
+                                <div class="image-parent">
+                                    <img src="{{ vich_uploader_asset(league, 'logoFile') }}" class="img-fluid" style="border-radius : 50%;" alt="quixote">
+                                </div>
+                                {# </a>  #}
+                            </li>
+                        </a>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="col-10">
+                <br>
+                <h4 class="text-muted">Les Matches Planifiés</h4>
+                <table class="table" style="width : 100%;">
+                    <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for match in matchees %}
+                        <tr style="text-align: center;">
+                            <!-- HOST -->
+                            <th scope="row" style="font-size:20px;">
+                                <table class="table">
+                                    <tr>
+                                        <td rowspan="2"><img style="width : 75px ; height : 75px; border-radius : 50%" src="{{ vich_uploader_asset(match.host, 'logoFile') }}"></td>
+                                        <td>{{match.host.nom}} (HOME)</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size:15px;">{{match.host.league.nom}}</td>
+                                    </tr>
+                                </table>
+                            </th>
+
+                            <td><span style="font-size:30px; font-style: italic;">VS</span><br><b>{{match.date | date('d-M-y à H:m')}}</b></td>
+
+                            <th scope="row" style="font-size:20px;">
+                                <table class="table">
+                                    <tr>
+                                        <td>{{match.guest.nom}} (AWAY)</td>
+                                        <td rowspan="2"><img style="width : 75px ; height : 75px; border-radius : 50%" src="{{ vich_uploader_asset(match.guest, 'logoFile') }}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size:15px;">{{match.guest.league.nom}}</td>
+                                    </tr>
+                                </table>
+                            </th>
+
+                            {# <th scope="row" style="font-size:20px;">{{match.guest.nom}}&nbsp;&nbsp; <img style="width : 75px ; height : 75px; border-radius : 50%" src="{{ vich_uploader_asset(match.guest, 'logoFile') }}"></th> #}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

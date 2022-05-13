@@ -1,0 +1,56 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block title %}Promosport | Admin | Liste des Matches{% endblock %}
+
+{% block body %}
+    <h1>La Liste de Tous les Matchs <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">+</button></h1>
+    <table class="table table-dark">
+        <thead>
+        <tr>
+            <th scope="col">Equipe Hôte</th>
+            <th scope="col"></th>
+            <th scope="col">Equipe Invitée</th>
+            <th scope="col">Ligue</th>
+            <th scope="col">Date Précise</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for match in matchees %}
+            <tr>
+                <th scope="row"><img src="{{ vich_uploader_asset(match.host, 'logoFile') }}">&nbsp;&nbsp; {{match.host.nom}}</th>
+                <td>VS</td>
+                <th scope="row">{{match.guest.nom}}&nbsp;&nbsp; <img src="{{ vich_uploader_asset(match.guest, 'logoFile') }}"></th>
+                <th scope="col"><img src="{{ vich_uploader_asset(match.league, 'logoFile') }}">&nbsp;&nbsp;{{match.league.nom}}</th>
+                <th scope="col">{{match.date | date('d-M-y à H:m')}}</th>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ajouter un Nouveau Match</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {{form_start(form)}}
+                <div class="modal-body">
+                    {{form_row(form.host)}}
+                    <span style="text-align : center;">VS</span>
+                    {{form_row(form.guest)}}
+                    {{form_row(form.league)}}
+                    {{form_row(form.date)}}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block title %}Promosport | Admin | Liste des Ligues{% endblock %}
+
+{% block body %}
+    <h1>La Liste des Ligues Disponibles <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">+</button></h1>
+    <table class="table table-dark">
+        <thead>
+        <tr>
+            <th scope="col">Logo de la Ligue</th>
+            <th scope="col">Nom de la Ligue</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for league in leagues %}
+            <tr>
+                <th scope="row"><img src="{{ vich_uploader_asset(league, 'logoFile') }}"></th>
+                <td>{{league.nom}}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ajouter une Nouvelle Ligue</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {{form_start(form)}}
+                <div class="modal-body">
+                    {{form_row(form.nom)}}
+                    {{form_row(form.logoFile)}}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

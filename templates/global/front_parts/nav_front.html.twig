@@ -15,8 +15,7 @@
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Grille Promosport</a>
                     <div class="dropdown-menu rounded-0 m-0">
-                        <a href="#" class="dropdown-item">Promo International </a>
-                        <a href="#" class="dropdown-item">Promo National</a>
+                        <a href="{{ path('front_match')}}" class="dropdown-item">Promo International </a>
                     </div>
                 </div>
                 {% if is_granted('ROLE_ADMIN') and app.user %}
